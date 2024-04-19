@@ -1,0 +1,36 @@
+:root {
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  color: #000000;
+  background-color: #dee6e9;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  word-wrap: break-all;
+
+
+
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #f2f5f7;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #16c8ab;
+    border: 3px solid #f2f5f7;
+    border-radius: 100px;
+  }
+}
+
+body {
+  position: relative;
+  width: 1905px;
+  height: 1080px;
+  background: #DEE6E9;
+}
