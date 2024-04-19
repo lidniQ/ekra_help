@@ -9,9 +9,11 @@ import Image from '@tiptap/extension-image';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
 import DraggableItem from '../ts/DraggableItem.ts'
+import { MyImage } from "../ts/Image/Image.ts";
+// import Doc from '../ts/Title/Doc.ts'
+// import Title from '../ts/Title/Title.ts'
 
 import float from './float.vue';
-
 import menu_edit from './menu_edit.vue';
 
 
@@ -42,7 +44,16 @@ export default {
         ColorHighlighter,
         Underline,
         DraggableItem,
+        MyImage,
+        // Placeholder.configure({
+        //   placeholder: ({ node }) => {
+        //     if (node.type.name === 'heading') {
+        //       return 'What’s the title?'
+        //     }
 
+        //     return 'Can you add some further context?'
+        //   },
+        // }),
       ],
       editorProps: {
         attributes: {
@@ -54,7 +65,6 @@ export default {
               border: none;`
         },
       },
-      content: `<p>Running tiptap with Vue.js</p>`,
     });
     return { editor };
   },
@@ -70,20 +80,9 @@ export default {
 </script>
 
 <template>
+
   <menu_edit :editor="editor"></menu_edit>
   <floating-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
-    <!-- <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
-      :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
-      H1
-    </button>
-    <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
-      :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
-      H2
-    </button>
-    <button @click="editor.chain().focus().toggleBulletList().run()"
-      :class="{ 'is-active': editor.isActive('bulletList') }">
-      Bullet List
-    </button> -->
     <float :editor="editor"></float>
 
   </floating-menu>
@@ -99,6 +98,52 @@ export default {
   ul,
   ol {
     padding: 0 1rem;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.1;
+  }
+
+  code {
+    background-color: rgba(#616161, 0.1);
+    color: #616161;
+  }
+
+  pre {
+    background: #0D0D0D;
+    color: #FFF;
+    font-family: 'JetBrainsMono', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+
+    code {
+      color: inherit;
+      padding: 0;
+      background: none;
+      font-size: 0.8rem;
+    }
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+    color: rgb(80, 80, 80);
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
   }
 }
 </style>

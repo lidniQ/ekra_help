@@ -2,36 +2,29 @@
   <div v-if="editor" class="float_edit">
     <button @click="editor.chain().focus().toggleHeading({ level: 1 }).run()"
       :class="{ 'is-active': editor.isActive('heading', { level: 1 }) }">
-      H1
+      <i class="fa-solid fa-heading"></i>1
     </button>
     <button @click="editor.chain().focus().toggleHeading({ level: 2 }).run()"
       :class="{ 'is-active': editor.isActive('heading', { level: 2 }) }">
-      H2
+      <i class="fa-solid fa-heading"></i>2
     </button>
     <button @click="editor.chain().focus().toggleHeading({ level: 3 }).run()"
       :class="{ 'is-active': editor.isActive('heading', { level: 3 }) }">
-      H3
+      <i class="fa-solid fa-heading"></i>3
     </button>
 
     <button @click="editor.chain().focus().toggleBulletList().run()"
       :class="{ 'is-active': editor.isActive('bulletList') }">
-      <icon name="ul" />
+      <i class="fa-solid fa-list-ul"></i>
     </button>
 
     <button @click="editor.chain().focus().toggleOrderedList().run()"
       :class="{ 'is-active': editor.isActive('orderedList') }">
-      <icon name="ol" />
-    </button>
+      <i class="fa-solid fa-list-ol"></i> </button>
 
     <button @click="editor.chain().focus().toggleBlockquote().run()"
       :class="{ 'is-active': editor.isActive('blockquote') }">
-      <icon name="quote" />
-    </button>
-
-    <button @click="editor.chain().focus().toggleCodeBlock().run()"
-      :class="{ 'is-active': editor.isActive('codeBlock') }">
-      <icon name="code" />
-    </button>
+      <i class="fa-solid fa-quote-right"></i> </button>
 
   </div>
 </template>
@@ -72,24 +65,5 @@ export default defineComponent({
 </script>
 
 <style>
-.float_edit {
-  position: absolute;
-  z-index: 1;
-  margin-top: -0.25rem;
-  opacity: 1;
-  transition: opacity 0.5s ease-out;
-
-  &.is-active {
-    opacity: 1;
-  }
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.float_edit:not(.is-active) {
-  visibility: hidden;
-  transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-}
+.float_edit {}
 </style>

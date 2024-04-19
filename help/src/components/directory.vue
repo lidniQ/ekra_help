@@ -72,7 +72,6 @@ export default {
   height: 600px;
   width: 1470px;
   border-radius: 5px;
-  background: #FFFFFF;
   z-index: 1
 }
 
