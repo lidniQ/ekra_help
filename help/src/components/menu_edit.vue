@@ -68,9 +68,6 @@
             <button type="button" @click="addImage">
               <i class="fa-solid fa-image"></i>
             </button>
-            <button type="button" @click="openVideoPicker">
-              <i class="fa-solid fa-video"></i>
-            </button>
             <button type="button">
               <i class="fa-solid fa-table"></i>
 
@@ -144,24 +141,6 @@ export default defineComponent({
       };
       input.click();
     },
-    openVideoPicker() {
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept = 'video/*';
-      input.onchange = (e) => {
-        const file = e.target?.files?.[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = (readerEvent) => {
-            const url = readerEvent.target?.result as string;
-            this.editor?.chain().focus().setVideo({ src: url }).run();
-          };
-        }
-      };
-      input.click();
-    },
-
   }
 });
 </script>

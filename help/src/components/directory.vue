@@ -3,6 +3,9 @@
     <div class="editor-content">
       <tiptap />
     </div>
+    <div class="choise-menu">
+      <save_choise />
+    </div>
   </div>
 </template>
 
@@ -10,7 +13,7 @@
 import { mapState, mapMutations } from 'vuex';
 import { useEditor, EditorContent } from '@tiptap/vue-3';
 
-
+import save_choise from './save-choise.vue'
 import tiptap from './tiptap.vue';
 
 
@@ -22,6 +25,7 @@ export default {
   },
   components: {
     tiptap,
+    save_choise,
   },
   computed: {
     ...mapState(['flag', 'preview', 'editorContent']),
@@ -101,5 +105,18 @@ img {
     border-radius: 2px;
     background-color: var(--color);
   }
+}
+
+.choise-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  top: 880px;
+
+  height: 60px;
+  width: 1470px;
+
+  background: #F2F5F7;
 }
 </style>
