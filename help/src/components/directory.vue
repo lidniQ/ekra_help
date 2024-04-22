@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="view-edit">
+  </div>
+  <div class="editor-conteiners">
     <div class="editor-content">
       <tiptap />
     </div>
@@ -20,7 +22,7 @@ import tiptap from './tiptap.vue';
 export default {
   data() {
     return {
-      renderContent: '',
+      content: '<p>A Vue.js wrapper component for tiptap to use <code>v-model</code>.</p>',
     };
   },
   components: {

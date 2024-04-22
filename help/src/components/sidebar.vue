@@ -1,5 +1,4 @@
 <script>
-import { mapState, mapMutations } from 'vuex';
 import jsonData from '../data/json/articles.json';
 
 export default {
@@ -11,21 +10,15 @@ export default {
   created() {
     this.loadArticles();
   },
-  computed: {
-    ...mapState(['selectedTitle'])
-  },
   methods: {
-    ...mapMutations(['setSelectedTitle']),
     loadArticles() {
-      this.articles = jsonData.articles; // устанавливаем данные статей из импортированного JSON
+      this.articles = jsonData.articles;
     },
-    toggleDropdown(index, items) {
-      this.articles[index].expanded = !this.articles[index].expanded;
-      this.setSelectedTitle(this.articles[index].title);
+    toggleDropdown(index) {
+      const selectedArticle = this.articles[index];
+      this.$emit('articleClicked', selectedArticle);
     },
   },
-  components: {
-  }
 };
 </script>
 
@@ -44,8 +37,8 @@ export default {
           </span>
         </div>
         <ul v-if="article.expanded">
-          <li v-for="(items, index) in article.items" :key="index" class="li-sub-items">
-            <a :href="'#' + items" class="sub-item-link">{{ items }}</a>
+          <li v-for="(item, index) in article.items" :key="index" class="li-sub-items">
+            <a :href="'#' + item" class="sub-item-link">{{ item }}</a>
           </li>
         </ul>
       </li>

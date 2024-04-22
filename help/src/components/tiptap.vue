@@ -16,17 +16,15 @@ import { MyImage } from "../ts/Image/Image.ts";
 import float from './float.vue';
 import menu_edit from './menu_edit.vue';
 
-
 export default {
   components: {
     EditorContent,
     menu_edit,
-    FloatingMenu,
-    float,
   },
 
   data() {
     return {
+      content: '',
     }
   },
   setup() {
@@ -45,15 +43,6 @@ export default {
         Underline,
         DraggableItem,
         MyImage,
-        // Placeholder.configure({
-        //   placeholder: ({ node }) => {
-        //     if (node.type.name === 'heading') {
-        //       return 'What’s the title?'
-        //     }
-
-        //     return 'Can you add some further context?'
-        //   },
-        // }),
       ],
       editorProps: {
         attributes: {
@@ -86,7 +75,7 @@ export default {
     <float :editor="editor"></float>
 
   </floating-menu>
-  <editor-content :editor="editor" v-model="content" />
+  <editor-content :editor="editor" />
 </template>
 
 <style>
