@@ -3,7 +3,7 @@
   </div>
   <div class="editor-conteiners">
     <div class="editor-content">
-      <tiptap />
+      <tiptap v-model="content" />
     </div>
     <div class="choise-menu">
       <save_choise />
@@ -30,7 +30,7 @@ export default {
     save_choise,
   },
   computed: {
-    ...mapState(['flag', 'preview', 'editorContent']),
+    ...mapState(['flag', 'preview']),
     DirectoryViewStyles() {
       return {
         marginTop: this.selectedTitle ? '80px' : '20px',

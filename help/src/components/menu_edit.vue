@@ -26,6 +26,7 @@
               <i class="fa-solid fa-italic"></i>
             </button>
             <button @click="editor.chain().focus().toggleUnderline().run()"
+              :disabled="!editor.can().chain().focus().toggleStrike().run()"
               :class="{ 'is-active': editor.isActive('underline') }">
               <i class="fa-solid fa-underline"></i>
             </button>
@@ -35,6 +36,7 @@
               <i class="fa-solid fa-strikethrough"></i>
             </button>
             <button @click="editor.chain().focus().toggleHighlight({ color: '#ffc078' }).run()"
+              :disabled="!editor.can().chain().focus().toggleStrike().run()"
               :class="{ 'is-active': editor.isActive('highlight', { color: '#ffc078' }) }">
               <i class="fa-solid fa-highlighter"></i>
             </button>

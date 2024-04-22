@@ -5,7 +5,6 @@ interface RootState {
   setpreview: boolean;
   selectedTitle: string;
   color: string;
-  editorContent: string;
 
 }
 
@@ -15,7 +14,6 @@ const store = new Store<RootState>({
     preview: false,
     selectedTitle: '',
     color: "#000000",
-    editorContent: '<p>I’m running Tiptap with Vue.js. 🎉</p>',
   },
   mutations: {
     setflag(state, boolean) { 

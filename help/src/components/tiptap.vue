@@ -16,15 +16,18 @@ import { MyImage } from "../ts/Image/Image.ts";
 import float from './float.vue';
 import menu_edit from './menu_edit.vue';
 
+
 export default {
   components: {
     EditorContent,
     menu_edit,
+    FloatingMenu, // Добавляем FloatingMenu в раздел components
+    float,
   },
 
   data() {
     return {
-      content: '',
+      content: 'ываываываывава',
     }
   },
   setup() {
@@ -32,7 +35,7 @@ export default {
       extensions: [
         StarterKit,
         TextAlign.configure({
-          types: ['heading', 'paragraph'],
+          types: ['heading', 'paragraph', 'image'],
           alignments: ['left', 'center', 'right', 'justify'],
         }),
         Highlight,
@@ -44,6 +47,7 @@ export default {
         DraggableItem,
         MyImage,
       ],
+      content: ``,
       editorProps: {
         attributes: {
           class: 'custom-editor-style',
@@ -53,7 +57,9 @@ export default {
               overflow-y: auto;
               border: none;`
         },
+
       },
+
     });
     return { editor };
   },
@@ -75,7 +81,7 @@ export default {
     <float :editor="editor"></float>
 
   </floating-menu>
-  <editor-content :editor="editor" />
+  <editor-content :editor="editor" v-model="content" />
 </template>
 
 <style>
