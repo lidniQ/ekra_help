@@ -8,11 +8,15 @@ import TextAlign from '@tiptap/extension-text-align';
 import Image from '@tiptap/extension-image';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
-import DraggableItem from '../ts/DraggableItem.ts'
 import { MyImage } from "../ts/Image/Image.ts";
+import { Color } from '@tiptap/extension-color'
+import Document from '@tiptap/extension-document'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
+import TextStyle from '@tiptap/extension-text-style'
 // import Doc from '../ts/Title/Doc.ts'
 // import Title from '../ts/Title/Title.ts'
-
+import { ref, watch } from 'vue';
 import float from './float.vue';
 import menu_edit from './menu_edit.vue';
 
@@ -21,17 +25,25 @@ export default {
   components: {
     EditorContent,
     menu_edit,
-    FloatingMenu, // Добавляем FloatingMenu в раздел components
+    FloatingMenu,
     float,
   },
 
-  data() {
-    return {
-      content: 'ываываываывава',
-    }
+  props: {
+    modelValue: {
+      type: String,
+      default: '',
+    },
   },
-  setup() {
+
+  emits: ['update:modelValue'],
+
+  setup(props) {
     const editor = useEditor({
+      content: props.modelValue,
+      onUpdate: () => {
+        props.$emit('update:modelValue', editor.getHTML())
+      },
       extensions: [
         StarterKit,
         TextAlign.configure({
@@ -44,32 +56,40 @@ export default {
         SmilieReplacer,
         ColorHighlighter,
         Underline,
-        DraggableItem,
         MyImage,
+        Document,
+        Paragraph,
+        Text,
+        TextStyle,
+        Color,
       ],
-      content: ``,
       editorProps: {
         attributes: {
           class: 'custom-editor-style',
           style: `background-color: #fff;
-              width: 1400px;
+              width: 1525px;
               height: 800px;
               overflow-y: auto;
+              border-radius: 5px;
               border: none;`
         },
-
       },
-
     });
-    return { editor };
+
+    const editorInstance = ref(editor);
+
+    watch(() => props.modelValue, (value) => {
+      const isSame = editorInstance.value.getHTML() === value;
+
+      if (!isSame) {
+        editorInstance.value.commands.setContent(value, false);
+      }
+    });
+    return { editor: editorInstance };
   },
+
   beforeUnmount() {
-    this.editor.destroy()
-  },
-  watch: {
-    isEditable(value) {
-      this.editor.setEditable(value)
-    },
+    editor.destroy()
   },
 }
 </script>
@@ -81,7 +101,7 @@ export default {
     <float :editor="editor"></float>
 
   </floating-menu>
-  <editor-content :editor="editor" v-model="content" />
+  <editor-content :editor="editor" />
 </template>
 
 <style>

@@ -22,7 +22,7 @@ import tiptap from './tiptap.vue';
 export default {
   data() {
     return {
-      content: '<p>A Vue.js wrapper component for tiptap to use <code>v-model</code>.</p>',
+      content: '<p>Артем, я ничего не трогал Только data(content) поменял)</p>',
     };
   },
   components: {
@@ -49,30 +49,21 @@ export default {
     toggleViews() {
       this.setflag(true);
       this.setpreview(true);
-    }
+    },
+  },
+  mounted() {
   },
 };
 </script>
 
 <style>
-.custom-editor-style {
-  width: 1400px;
-  /* Установите нужную ширину */
-  height: 600px;
-  /* Установите нужную высоту */
-  overflow-y: auto;
-  /* Обеспечьте появление полос прокрутки, если содержимое выходит за пределы */
-  border: none;
-  /* Удалите границу, если она не нужна */
-}
-
 .editor-content {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
   height: 600px;
-  width: 1470px;
+  width: 1525px;
   border-radius: 5px;
   z-index: 1
 }
@@ -114,9 +105,8 @@ img {
   align-items: flex-start;
   position: absolute;
   top: 880px;
-
   height: 60px;
-  width: 1470px;
+  width: 1525px;
 
   background: #F2F5F7;
 }

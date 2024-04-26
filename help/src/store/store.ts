@@ -4,7 +4,6 @@ interface RootState {
   setflag: boolean;
   setpreview: boolean;
   selectedTitle: string;
-  color: string;
 
 }
 
@@ -13,7 +12,6 @@ const store = new Store<RootState>({
     flag: false,
     preview: false,
     selectedTitle: '',
-    color: "#000000",
   },
   mutations: {
     setflag(state, boolean) { 
@@ -26,24 +24,17 @@ const store = new Store<RootState>({
       state.selectedTitle = text;
     },
 
-    setColor(state, text) { 
-      state.color = text
-    },
     setEditorContent(state, content: string) {
       state.editorContent = content;
     },
 
   },
   actions: {
-    updateColor({ commit }, newColor) {
-      commit('setColor', newColor);
-    },
     saveEditorContent({ commit }, content: string) {
       commit('setEditorContent', content);
     },
   },
   getters: {
-    getColor: state => state.color,
   }
 });
 

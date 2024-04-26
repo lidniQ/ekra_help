@@ -28,7 +28,7 @@ export default {
   align-items: flex-start;
   position: absolute;
   width: 1865px;
-  height: 1080px;
+  height: 1010px;
   left: 20px;
   top: 50px;
   background: #F2F5F7;
