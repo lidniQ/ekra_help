@@ -22,7 +22,7 @@ import tiptap from './tiptap.vue';
 export default {
   data() {
     return {
-      content: '<p>Артем, я ничего не трогал Только data(content) поменял)</p>',
+      content: '<p>Артем, я не трогал Только data(content) поменял)</p>',
     };
   },
   components: {
@@ -44,11 +44,15 @@ export default {
       };
     },
   },
+  watch: {
+    content(newContent) {
+      this.setEditorContent(newContent); // Вызываем мутацию при изменении content
+    },
+  },
   methods: {
-    ...mapMutations(['setflag', 'setpreview']),
-    toggleViews() {
-      this.setflag(true);
-      this.setpreview(true);
+    ...mapMutations(['setflag', 'setpreview', 'setEditorContent']),
+    logContent() {
+      console.log(this.content); // Вывод содержимого в консоль
     },
   },
   mounted() {

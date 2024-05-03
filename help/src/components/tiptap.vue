@@ -1,5 +1,5 @@
 <script>
-import { useEditor, EditorContent, FloatingMenu } from '@tiptap/vue-3'
+import { Editor, EditorContent, FloatingMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import { ColorHighlighter } from '../ts/ColorHighlighter';
 import { SmilieReplacer } from '../ts/SmilieReplacer.ts';
@@ -14,12 +14,10 @@ import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import TextStyle from '@tiptap/extension-text-style'
-
 import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
-
 // import Doc from '../ts/Title/Doc.ts'
 // import Title from '../ts/Title/Title.ts'
 import { ref, watch } from 'vue';
@@ -28,13 +26,17 @@ import menu_edit from './menu_edit.vue';
 
 
 export default {
+  data() {
+    return {
+      editor: null,
+    }
+  },
   components: {
     EditorContent,
     menu_edit,
     FloatingMenu,
     float,
   },
-
   props: {
     modelValue: {
       type: String,
@@ -44,12 +46,24 @@ export default {
 
   emits: ['update:modelValue'],
 
-  setup(props) {
-    const editor = useEditor({
-      content: props.modelValue,
-      // onUpdate: () => {
-      //   props.$emit('update:modelValue', editor.getHTML())
-      // },
+  watch: {
+    modelValue(value) {
+      // HTML
+      const isSame = this.editor.getHTML() === value
+
+      // JSON
+      // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
+
+      if (isSame) {
+        return
+      }
+
+      this.editor.commands.setContent(value, false)
+    },
+  },
+
+  mounted() {
+    this.editor = new Editor({
       extensions: [
         StarterKit,
         TextAlign.configure({
@@ -75,6 +89,14 @@ export default {
         TableHeader,
         TableCell,
       ],
+      content: this.modelValue,
+      onUpdate: () => {
+        // HTML
+        this.$emit('update:modelValue', this.editor.getHTML())
+
+        // JSON
+        // this.$emit('update:modelValue', this.editor.getJSON())
+      },
       editorProps: {
         attributes: {
           class: 'custom-editor-style',
@@ -86,18 +108,7 @@ export default {
               border: none;`
         },
       },
-    });
-
-    const editorInstance = ref(editor);
-
-    watch(() => props.modelValue, (value) => {
-      const isSame = editorInstance.value.getHTML() === value;
-
-      if (!isSame) {
-        editorInstance.value.commands.setContent(value, false);
-      }
-    });
-    return { editor: editorInstance };
+    })
   },
 
   beforeUnmount() {
@@ -107,9 +118,7 @@ export default {
 </script>
 
 <template>
-  <div class="menu-wrapper">
-    <menu_edit :editor="editor"></menu_edit>
-  </div>
+  <menu_edit :editor="editor"></menu_edit>
   <floating-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
     <float :editor="editor"></float>
   </floating-menu>
@@ -236,10 +245,5 @@ export default {
 .resize-cursor {
   cursor: ew-resize;
   cursor: col-resize;
-}
-
-.menu-wrapper {
-  display: flex;
-  justify-content: center;
 }
 </style>

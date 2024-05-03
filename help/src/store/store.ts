@@ -4,7 +4,7 @@ interface RootState {
   setflag: boolean;
   setpreview: boolean;
   selectedTitle: string;
-
+  editorContent: string; 
 }
 
 const store = new Store<RootState>({
@@ -12,27 +12,24 @@ const store = new Store<RootState>({
     flag: false,
     preview: false,
     selectedTitle: '',
+    editorContent: '', 
   },
   mutations: {
-    setflag(state, boolean) { 
-      state.flag = boolean;
+    setFlag(state, flag: boolean) { // Измененное название мутации
+      state.flag = flag;
     },
-    setpreview(state, boolean) { 
-      state.preview = boolean;
+    setPreview(state, preview: boolean) { // Измененное название мутации
+      state.preview = preview;
     },
-    setSelectedTitle(state, text) { 
-      state.selectedTitle = text;
+    setSelectedTitle(state, selectedTitle: string) {
+      state.selectedTitle = selectedTitle;
     },
-
-    setEditorContent(state, content: string) {
-      state.editorContent = content;
+    setEditorContent(state, editorContent: string) { // Измененное название мутации
+      state.editorContent = editorContent;
     },
 
   },
   actions: {
-    saveEditorContent({ commit }, content: string) {
-      commit('setEditorContent', content);
-    },
   },
   getters: {
   }

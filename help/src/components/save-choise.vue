@@ -58,6 +58,7 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
+import axios from 'axios';
 
 export default {
   data() {
@@ -70,7 +71,7 @@ export default {
     ...mapState(['flag', 'preview', 'editorContent']),
   },
   methods: {
-    ...mapMutations(['setflag', 'setpreview', 'saveEditorContent']),
+    ...mapMutations(['setflag', 'setpreview']),
     cancelArticle() {
       this.setflag(false);
       this.setpreview(false);
@@ -78,8 +79,15 @@ export default {
     previewArticle() {
       this.setpreview(!this.preview);
     },
-
     saveArticle() {
+      axios.post('http://127.0.0.1:8000/save/content', { content: this.editorContent })
+        .then(response => {
+          console.log('Успешно сохранено:', response.data);
+        })
+        .catch(error => {
+          console.error('Ошибка сохранения:', error);
+        });
+
       this.setflag(false);
       this.setpreview(false);
     },

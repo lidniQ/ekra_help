@@ -1,16 +1,22 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
+
 class Content(BaseModel):
     content: str
 
-@app.post("/receive_content/")
+@app.post("/save/content/")
 async def receive_content(content: Content):
-    # Здесь вы можете обработать полученный контент
     received_content = content.content
-    # Делайте что-то с полученным контентом, например, выводите его
     print(received_content)
-    # Верните какой-то ответ, если это необходимо
-    return {"message": "Content received successfully"}
+    return {"message": received_content}
