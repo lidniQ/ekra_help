@@ -55,6 +55,10 @@ export default defineComponent({
   box-sizing: border-box;
 }
 
+.row.justify-center {
+  justify-content: center;
+}
+
 .main-menu-edit {
   display: flex;
   justify-content: center;
@@ -63,7 +67,7 @@ export default defineComponent({
 
 .section {
   height: 70px;
-  width: 1400px;
+  width: 1525px;
 }
 
 .box {

@@ -1,10 +1,10 @@
 <template>
   <div v-if="editor">
-    <button type="button" @click="addImage">
+    <button title="Вставить изображение" type="button" @click="addImage">
       <i class="fa-solid fa-image"></i>
     </button>
-    <table_insert />
-    <input type="color" @input="editor.chain().focus().setColor($event.target.value).run()"
+    <table_insert :editor="editor" />
+    <input title="Изменить цвет текста" type="color" @input="editor.chain().focus().setColor($event.target.value).run()"
       :value="editor.getAttributes('textStyle').color">
   </div>
 </template>

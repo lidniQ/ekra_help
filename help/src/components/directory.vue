@@ -104,7 +104,7 @@ img {
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  top: 880px;
+  top: 950px;
   height: 60px;
   width: 1525px;
 

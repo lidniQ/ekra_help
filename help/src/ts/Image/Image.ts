@@ -5,7 +5,6 @@ export const MyImage = Image.extend({
   defaultOptions: {
     ...Image.options,
     sizes: ["center", "justify", "left", "right"], //Расположение картинки по форме
-
   },
   renderHTML({ HTMLAttributes }) {
     const { style } = HTMLAttributes;

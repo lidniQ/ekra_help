@@ -1,6 +1,6 @@
 <template>
   <form>
-    <select id="font-size" name="text-size" @change="handleHeadingLevelChange">
+    <select title="Заголовок" id="font-size" name="text-size" @change="handleHeadingLevelChange">
       <option value="1" :selected="headingLevel === '1'">Заголовок 1</option>
       <option value="2" :selected="headingLevel === '2'">Заголовок 2</option>
       <option value="3" :selected="headingLevel === '3'">Заголовок 3</option>

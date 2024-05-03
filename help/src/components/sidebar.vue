@@ -12,10 +12,14 @@ export default {
   },
   methods: {
     loadArticles() {
-      this.articles = jsonData.articles;
+      this.articles = jsonData.articles.map(article => ({
+        ...article,
+        expanded: false // Initialize 'expanded' property for each article
+      }));
     },
     toggleDropdown(index) {
       const selectedArticle = this.articles[index];
+      selectedArticle.expanded = !selectedArticle.expanded;
       this.$emit('articleClicked', selectedArticle);
     },
   },
