@@ -32,7 +32,7 @@ export default {
           formData.append('image', file);
           axios.post('http://127.0.0.1:8000/upload_image/', formData)
             .then(response => {
-              const imageUrl = response.data.imageUrl;
+              const imageUrl = response.data.file_url;
               console.log('Image URL:', imageUrl);
               if (imageUrl && imageUrl.trim() !== '') {
                 this.editor.chain().focus().setImage({ src: imageUrl }).run();

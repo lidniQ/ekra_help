@@ -8,8 +8,11 @@ import os
 import uuid
 import time
 import shutil
+import base64
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -86,8 +89,11 @@ def json_load(new_article):
 
 
 # Указываем путь к папке для сохранения файлов
-UPLOAD_FOLDER = "/work/projects/ekra_help/help/src/media"
+UPLOAD_FOLDER = "/work/projects/ekra_help/help/src/media/"
 
+app.mount("/static", StaticFiles(directory=UPLOAD_FOLDER), name="static")
+
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @app.post("/upload_image/")
 async def upload_image(image: UploadFile = File(...)):
@@ -95,10 +101,11 @@ async def upload_image(image: UploadFile = File(...)):
         # Генерация уникального имени файла
         unique_filename = time.strftime("%Y%m%d_%H_%M_%S_") + uuid.uuid4().hex[:6]
         # Сохранение изображения по уникальному имени
-        with open(f"/work/projects/ekra_help/help/src/media/{unique_filename}.png", "wb") as buffer:
+        with open(f"{UPLOAD_FOLDER}/{unique_filename}.png", "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
-        print("Image uploaded successfully")
-        return JSONResponse(status_code=201, content={"message": "Image uploaded successfully", "imageUrl": f"{UPLOAD_FOLDER}/{unique_filename}.png"})
+        print("Изображение успешно загружено")
+        file_url = f"http://127.0.0.1:8000/static/{unique_filename}.png"  # Изменяем URL-адрес для доступа к статическим файлам
+        return {"file_url": file_url}    
     except Exception as e:
-        print(f"Failed to upload image: {str(e)}")
-        return JSONResponse(status_code=500, content={"message": f"Failed to upload image: {str(e)}"})
+        print(f"Не удалось загрузить изображение: {str(e)}")
+        return JSONResponse(status_code=500, content={"message": f"Не удалось загрузить изображение: {str(e)}"})
