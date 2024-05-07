@@ -24,12 +24,16 @@ import { ref, watch } from 'vue';
 import float from './float.vue';
 import menu_edit from './menu_edit.vue';
 
+import { mapState } from 'vuex';
 
 export default {
   data() {
     return {
       editor: null,
     }
+  },
+  computed: {
+    ...mapState(['flag', 'preview']),
   },
   components: {
     EditorContent,
@@ -71,12 +75,19 @@ export default {
           alignments: ['left', 'center', 'right', 'justify'],
         }),
         Highlight,
-        Image,
+        Image.configure({
+          allowBase64: true,
+          HTMLAttributes: {
+            class: 'custom-img-style',
+          },
+        }),
         Typography,
         SmilieReplacer,
         ColorHighlighter,
         Underline,
-        MyImage,
+        MyImage.configure({
+          allowBase64: true,
+        }),
         Document,
         Paragraph,
         Text,
@@ -102,15 +113,17 @@ export default {
           class: 'custom-editor-style',
           style: `background-color: #fff;
               width: 1525px;
-              height: 880px;
+              height: ${this.flag ? '880px' : '970px'}; // изменение высоты в зависимости от flag
               overflow-y: auto;
               border-radius: 5px;
-              border: none;`
+              border: none;
+              margin: ${this.flag ? '0 0 0 0' : '20px 0px 20px 0'};`
+
+
         },
       },
     })
   },
-
   beforeUnmount() {
     editor.destroy()
   },
@@ -118,7 +131,7 @@ export default {
 </script>
 
 <template>
-  <menu_edit :editor="editor"></menu_edit>
+  <menu_edit v-if="preview" :editor="editor" :key="flag"></menu_edit>
   <floating-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
     <float :editor="editor"></float>
   </floating-menu>

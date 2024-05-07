@@ -1,5 +1,6 @@
 <script>
 import jsonData from '../data/json/articles.json';
+import { mapState, mapMutations } from 'vuex';
 
 export default {
   data() {
@@ -10,7 +11,11 @@ export default {
   created() {
     this.loadArticles();
   },
+  computed: {
+    ...mapState(['editorContent', 'selectedTitle']),
+  },
   methods: {
+    ...mapMutations(['setEditorContent', 'setSelectedTitle']),
     loadArticles() {
       this.articles = jsonData.articles.map(article => ({
         ...article,
@@ -18,14 +23,25 @@ export default {
       }));
     },
     toggleDropdown(index) {
+      this.articles.forEach((article, i) => {
+        if (i !== index) {
+          article.expanded = false; // Свернуть все статьи, кроме выбранной
+        }
+      });
+
       const selectedArticle = this.articles[index];
       selectedArticle.expanded = !selectedArticle.expanded;
+      if (selectedArticle.expanded) {
+        this.setEditorContent(selectedArticle.html);
+        this.setSelectedTitle(selectedArticle.title);
+      } else {
+        this.setEditorContent('');
+      }
       this.$emit('articleClicked', selectedArticle);
     },
   },
 };
 </script>
-
 <template>
   <div class="label">
     <ul>
@@ -33,8 +49,10 @@ export default {
         <div @click="toggleDropdown(index)" class="sidebar-item">
           {{ article.title }}
           &nbsp;
-          <span v-if="article.expanded">
-            <i v-if="article.items" class="fa-solid fa-chevron-up"></i>
+          <span v-if="article.expanded && article.items && article.items.length > 0">
+            <i class="fa-solid fa-chevron-up"></i>
+          </span>
+          <span v-else-if="article.items && article.items.length === 0">
           </span>
           <span v-else>
             <i v-if="article.items" class="fa-solid fa-chevron-down"></i>

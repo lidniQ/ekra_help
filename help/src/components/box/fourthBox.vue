@@ -11,6 +11,7 @@
 
 <script>
 import table_insert from '../smallComponents/table.vue';
+import axios from 'axios';
 
 export default {
   props: {
@@ -27,18 +28,30 @@ export default {
       input.onchange = (e) => {
         const file = e.target.files[0];
         if (file) {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = (readerEvent) => {
-            const url = readerEvent.target.result;
-            this.editor.chain().focus().setImage({ src: url }).run();
-          };
+          const formData = new FormData();
+          formData.append('image', file);
+          axios.post('http://127.0.0.1:8000/upload_image/', formData)
+            .then(response => {
+              const imageUrl = response.data.imageUrl;
+              console.log('Image URL:', imageUrl);
+              if (imageUrl && imageUrl.trim() !== '') {
+                this.editor.chain().focus().setImage({ src: imageUrl }).run();
+              } else {
+                console.error('Error: Empty or invalid image URL received from server');
+                alert('Ошибка: Получен пустой или неверный URL изображения от сервера');
+              }
+            })
+            .catch(error => {
+              console.error('Error uploading image:', error);
+              alert('Ошибка загрузки изображения: ' + error.response.data.message);
+            });
         }
       };
       input.click();
     },
   },
-}
+};
+
 
 
 

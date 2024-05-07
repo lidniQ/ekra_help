@@ -71,13 +71,13 @@ export default {
     ...mapState(['flag', 'preview', 'editorContent']),
   },
   methods: {
-    ...mapMutations(['setflag', 'setpreview']),
+    ...mapMutations(['setFlag', 'setPreview']),
     cancelArticle() {
-      this.setflag(false);
-      this.setpreview(false);
+      this.setFlag(false);
+      this.setPreview(false);
     },
     previewArticle() {
-      this.setpreview(!this.preview);
+      this.setPreview(!this.preview);
     },
     saveArticle() {
       axios.post('http://127.0.0.1:8000/save/content', { content: this.editorContent })
@@ -87,9 +87,8 @@ export default {
         .catch(error => {
           console.error('Ошибка сохранения:', error);
         });
-
-      this.setflag(false);
-      this.setpreview(false);
+      this.setFlag(false);
+      this.setPreview(false);
     },
 
   },

@@ -6,7 +6,7 @@
       <tiptap v-model="content" />
     </div>
     <div class="choise-menu">
-      <save_choise />
+      <save_choise v-if="flag" />
     </div>
   </div>
 </template>
@@ -22,7 +22,7 @@ import tiptap from './tiptap.vue';
 export default {
   data() {
     return {
-      content: '<p>Артем, я не трогал Только data(content) поменял)</p>',
+      content: "",
     };
   },
   components: {
@@ -30,25 +30,14 @@ export default {
     save_choise,
   },
   computed: {
-    ...mapState(['flag', 'preview']),
-    DirectoryViewStyles() {
-      return {
-        marginTop: this.selectedTitle ? '80px' : '20px',
-        height: this.selectedTitle ? '700px' : '700px',
-      };
-    },
-    newDirectoryStyle() {
-      return {
-        height: this.flag ? '700px' : '700px',
-        height: this.preview ? '700px' : '700px',
-      };
-    },
+    ...mapState(['flag', 'preview', 'editorContent']),
   },
   watch: {
-    content(newContent) {
-      this.setEditorContent(newContent); // Вызываем мутацию при изменении content
+    editorContent(newEditorContent) {
+      this.content = newEditorContent;
     },
   },
+
   methods: {
     ...mapMutations(['setflag', 'setpreview', 'setEditorContent']),
     logContent() {
@@ -66,8 +55,8 @@ export default {
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  height: 600px;
-  width: 1525px;
+  height: auto;
+  width: auto;
   border-radius: 5px;
   z-index: 1
 }

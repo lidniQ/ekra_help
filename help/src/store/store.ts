@@ -1,16 +1,17 @@
+
 import { Store } from 'vuex';
 
 interface RootState {
   setflag: boolean;
   setpreview: boolean;
   selectedTitle: string;
-  editorContent: string; 
+  seteditorContent: string; 
 }
 
 const store = new Store<RootState>({
   state: {
-    flag: false,
-    preview: false,
+    flag: true,
+    preview: true,
     selectedTitle: '',
     editorContent: '', 
   },

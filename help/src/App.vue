@@ -1,22 +1,33 @@
 <script>
 import sidebar from './components/sidebar.vue'
 import directory from './components/directory.vue'
+import ekra_menu_bar from './components/ekra-menu-bar.vue'
+import empty from './components/empty.vue'
+
+import { mapState } from 'vuex';
 
 export default {
   components: {
     sidebar,
     directory,
+    ekra_menu_bar,
+    empty,
+  },
+  computed: {
+    ...mapState(['flag', 'preview', 'selectedTitle']),
   }
 }
 </script>
 
 <template>
+  <ekra_menu_bar />
   <div class="container">
     <div class="sidebar">
       <sidebar />
     </div>
     <div class="directory">
-      <directory />
+      <empty v-if="!selectedTitle" />
+      <directory v-if="selectedTitle" />
     </div>
   </div>
 </template>

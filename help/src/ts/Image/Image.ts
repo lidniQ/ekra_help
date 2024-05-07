@@ -4,14 +4,14 @@ import { mergeAttributes } from "@tiptap/vue-3";
 export const MyImage = Image.extend({
   defaultOptions: {
     ...Image.options,
-    sizes: ["center", "justify", "left", "right"], //Расположение картинки по форме
+    sizes: ["center", "justify", "left", "right"],
   },
   renderHTML({ HTMLAttributes }) {
-    const { style } = HTMLAttributes;
+    const { src, alt, style } = HTMLAttributes;
     return [
       "figure",
       { style },
-      ["img", mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
+      ["img", mergeAttributes({ src, alt })],
     ];
-  }
+  },
 });

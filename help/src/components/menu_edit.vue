@@ -33,6 +33,7 @@ import thirdBox from './box/thirdBox.vue';
 import fourthBox from './box/fourthBox.vue';
 import fifthBox from './box/fifthBox.vue';
 
+
 export default defineComponent({
   props: {
     editor: Object,
