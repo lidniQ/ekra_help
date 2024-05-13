@@ -1,8 +1,15 @@
 <script>
+import { mapState } from 'vuex';
+
+export default {
+  computed: {
+    ...mapState(['selectedTitle']),
+  },
+}
 </script>
 
 <template>
-  <div class="empty_bd">
+  <div class="empty_bd" v-if="!selectedTitle">
     <div class="empty_wrapper">
       <div class="empty_label"> Выберите модуль для просмотра документации </div>
       <div class="empty_icon" style="padding-left: 32px;"> <i class="fa-solid fa-info"></i></div>

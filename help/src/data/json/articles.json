@@ -23,7 +23,7 @@
         {
             "title": "Тест",
             "expanded": false,
-            "html": "<h1>Тест</h1><figure style='text-align: center'><img src='http://127.0.0.1:8000/static/20240507_15_02_57_143c78.png'></figure>",
+            "html": "<h1>Тест</h1><figure style=\"text-align: center\"><img src='http://127.0.0.1:8000/static/20240507_15_02_57_143c78.png'></figure>",
             "items": [
                 "Тестик тестик"
             ]

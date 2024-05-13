@@ -5,7 +5,6 @@ import { ColorHighlighter } from '../ts/ColorHighlighter';
 import { SmilieReplacer } from '../ts/SmilieReplacer.ts';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
-import Image from '@tiptap/extension-image';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
 import { MyImage } from "../ts/Image/Image.ts";
@@ -21,7 +20,6 @@ import TableRow from '@tiptap/extension-table-row'
 // import Doc from '../ts/Title/Doc.ts'
 // import Title from '../ts/Title/Title.ts'
 import { ref, watch } from 'vue';
-import float from './float.vue';
 import menu_edit from './menu_edit.vue';
 
 import { mapState } from 'vuex';
@@ -39,7 +37,6 @@ export default {
     EditorContent,
     menu_edit,
     FloatingMenu,
-    float,
   },
   props: {
     modelValue: {
@@ -75,19 +72,11 @@ export default {
           alignments: ['left', 'center', 'right', 'justify'],
         }),
         Highlight,
-        Image.configure({
-          allowBase64: true,
-          HTMLAttributes: {
-            class: 'custom-img-style',
-          },
-        }),
         Typography,
         SmilieReplacer,
         ColorHighlighter,
         Underline,
-        MyImage.configure({
-          allowBase64: true,
-        }),
+        MyImage,
         Document,
         Paragraph,
         Text,
@@ -124,18 +113,12 @@ export default {
       },
     })
   },
-  beforeUnmount() {
-    editor.destroy()
-  },
 }
 </script>
 
 <template>
-  <menu_edit v-if="preview" :editor="editor" :key="flag"></menu_edit>
-  <floating-menu :editor="editor" :tippy-options="{ duration: 100 }" v-if="editor">
-    <float :editor="editor"></float>
-  </floating-menu>
-  <editor-content :editor="editor" />
+  <menu_edit v-if="flag" :editor="editor"></menu_edit>
+  <editor-content v-if="flag" :editor="editor" />
 </template>
 
 <style>

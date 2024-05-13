@@ -2,16 +2,25 @@ import { Image } from "@tiptap/extension-image";
 import { mergeAttributes } from "@tiptap/vue-3";
 
 export const MyImage = Image.extend({
-  defaultOptions: {
-    ...Image.options,
-    sizes: ["center", "justify", "left", "right"],
-  },
   renderHTML({ HTMLAttributes }) {
-    const { src, alt, style } = HTMLAttributes;
+    const { src, alt } = HTMLAttributes;
     return [
-      "figure",
-      { style },
-      ["img", mergeAttributes({ src, alt })],
+      "div",
+      { class: "wrapper img" },
+      [
+        "div",
+        { class: "space zone", style: "" },
+        [
+          "div",
+          { class: "mx-auto", style: "width: 50%; " },
+          [
+            "div",
+            {style:"width: max-content", contenteditable: "false" },
+            ["img",
+            mergeAttributes({ src, alt, class: "block;" })],
+          ],
+        ],
+      ],
     ];
   },
 });

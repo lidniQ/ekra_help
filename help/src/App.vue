@@ -3,6 +3,7 @@ import sidebar from './components/sidebar.vue'
 import directory from './components/directory.vue'
 import ekra_menu_bar from './components/ekra-menu-bar.vue'
 import empty from './components/empty.vue'
+import pencil_edit from './components/smallComponents/pencil.vue'
 
 import { mapState } from 'vuex';
 
@@ -12,6 +13,7 @@ export default {
     directory,
     ekra_menu_bar,
     empty,
+    pencil_edit,
   },
   computed: {
     ...mapState(['flag', 'preview', 'selectedTitle']),
@@ -26,8 +28,9 @@ export default {
       <sidebar />
     </div>
     <div class="directory">
-      <empty v-if="!selectedTitle" />
-      <directory v-if="selectedTitle" />
+      <pencil_edit />
+      <empty v-if="!flag" />
+      <directory v-if="flag" />
     </div>
   </div>
 </template>

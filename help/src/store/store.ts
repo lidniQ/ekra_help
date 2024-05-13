@@ -10,8 +10,8 @@ interface RootState {
 
 const store = new Store<RootState>({
   state: {
-    flag: true,
-    preview: true,
+    flag: false,
+    preview: false,
     selectedTitle: '',
     editorContent: '', 
   },

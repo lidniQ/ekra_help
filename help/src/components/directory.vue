@@ -3,7 +3,7 @@
   </div>
   <div class="editor-conteiners">
     <div class="editor-content">
-      <tiptap v-model="content" />
+      <tiptap v-if="flag" v-model="content" />
     </div>
     <div class="choise-menu">
       <save_choise v-if="flag" />
@@ -62,7 +62,6 @@ export default {
 }
 
 button {
-  background-color: #ffffff;
   border: none;
 }
 
