@@ -1,6 +1,7 @@
 <script>
 import sidebar from './components/sidebar.vue'
 import directory from './components/directory.vue'
+import directoryNewArticle from './components/directoryNewArticle.vue'
 import ekra_menu_bar from './components/ekra-menu-bar.vue'
 import empty from './components/empty.vue'
 import pencil_edit from './components/smallComponents/pencil.vue'
@@ -14,6 +15,7 @@ export default {
     ekra_menu_bar,
     empty,
     pencil_edit,
+    directoryNewArticle,
   },
   computed: {
     ...mapState(['flag', 'preview', 'selectedTitle']),
@@ -28,9 +30,10 @@ export default {
       <sidebar />
     </div>
     <div class="directory">
-      <pencil_edit />
+      <pencil_edit v-if="!flag" />
       <empty v-if="!flag" />
-      <directory v-if="flag" />
+      <directory v-if="selectedTitle" />
+      <directoryNewArticle v-if="flag" />
     </div>
   </div>
 </template>

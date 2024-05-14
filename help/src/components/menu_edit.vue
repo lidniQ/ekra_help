@@ -1,5 +1,5 @@
 <template>
-  <div class="main-menu-edit">
+  <div v-if="!preview" class="main-menu-edit">
     <div v-if="editor" class="section">
       <div class="row">
         <div class="col">
@@ -26,6 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { mapState } from 'vuex';
 
 import secontBox from './box/secondBox.vue';
 import firstBox from './box/firstBox.vue';
@@ -44,6 +45,9 @@ export default defineComponent({
     thirdBox,
     fourthBox,
     fifthBox,
+  },
+  computed: {
+    ...mapState(['preview']),
   },
 });
 

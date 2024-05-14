@@ -6,21 +6,39 @@ export const MyImage = Image.extend({
     const { src, alt } = HTMLAttributes;
     return [
       "div",
-      { class: "wrapper img" },
+      { class: "wrapper img", style:" display: flex; flex-direction: column; align-items: center;" },
       [
         "div",
-        { class: "space zone", style: "" },
+        { class: "space zone", style: "margin-bottom: 20px;" },
         [
-          "div",
-          { class: "mx-auto", style: "width: 50%; " },
-          [
-            "div",
-            {style:"width: max-content", contenteditable: "false" },
-            ["img",
-            mergeAttributes({ src, alt, class: "block;" })],
-          ],
+            "input",
+            { type: "range", id: "sizeRange", min: "50", max: "500", value: "250" }
         ],
-      ],
+          [
+            "button",
+            { onclick: "set_align('left')" }, 
+            "Влево"
+          ],
+          [
+            "button",
+            { onclick: "set_align('center')" },
+            "По центру"
+          ],
+          [
+            "button",
+            { onclick: "set_align('right')" }, 
+            "Вправо"
+          ]
+        ],
+        [
+            "div",
+            { id:"imageContainer", class: "image-container", style:"width: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden;" },
+          
+            ["img",
+              mergeAttributes({ src, alt, class: "block;"},)
+            ]
+        ]  
     ];
   },
+
 });

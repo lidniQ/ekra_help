@@ -26,18 +26,18 @@ upload_content ="/work/projects/ekra_help/help/src/data/json/articles.json"
 
 class Content(BaseModel):
     content: str
+    title: str
 
 @app.post("/save/content/")
 async def receive_content(content: Content):
     received_content = content.content
-    
+    received_title = content.title
     # Проверяем, не пуст ли заголовок
     if not has_title(received_content):
         raise HTTPException(status_code=400, detail="Заголовок не может быть пустым")
     
-    json_load(parsing(received_content))
-    print(received_content)
-    return {"message": received_content}
+    json_load(parsing(received_content),received_title)
+    return {"message": received_title}
 
 def has_title(html_content):
     soup = BeautifulSoup(html_content, 'html.parser')
@@ -71,12 +71,15 @@ def parsing(html_content):
         
     return new_article
 
-def json_load(new_article):
+
+
+def json_load(new_article, check_value):
     with open(upload_content, 'r', encoding='utf-8') as json_file:
         data = json.load(json_file)
         
     for article in data.get("articles", []):
-        if article.get("title") == new_article["title"]:
+        if article.get("title") == new_article["title"] or article.get("title") == check_value:
+            article["title"] = new_article["title"]  # Обновление заголовка
             article["expanded"] = new_article["expanded"]
             article["html"] = new_article["html"]
             article["items"] = new_article["items"]
@@ -85,7 +88,10 @@ def json_load(new_article):
         data.setdefault("articles", []).append(new_article)
 
     with open(upload_content, 'w', encoding='utf-8') as json_file:
-        json.dump(data, json_file, indent=4,ensure_ascii=False)
+        json.dump(data, json_file, indent=4, ensure_ascii=False)
+
+
+
 
 
 # Указываем путь к папке для сохранения файлов

@@ -1,11 +1,10 @@
 {
     "articles": [
         {
-            "title": "Артем, я не трогал Только data(content) поменял)sadadadadsadasdsdsd",
+            "title": "Артем",
             "expanded": false,
-            "html": "<h1>Артем, я не трогал Только data(content) поменял)sadadadadsadasdsdsd</h1><p><br class=\"ProseMirror-trailingBreak\"/></p><p><br class=\"ProseMirror-trailingBreak\"/></p><p><br class=\"ProseMirror-trailingBreak\"/></p><h2>sdfsdfsdfsdf</h2><p>sdfsdfsdfsdf</p><h2>sdfsdfsfsdf</h2><p><br class=\"ProseMirror-trailingBreak\"/></p>",
+            "html": "<h1>Артем</h1><p>sdfsdfsdfsdf</p><h2>sdfsdfsfsdf</h2><p><br/></p>",
             "items": [
-                "sdfsdfsdfsdf",
                 "sdfsdfsfsdf"
             ]
         },
@@ -26,6 +25,22 @@
             "html": "<h1>Тест</h1><figure style=\"text-align: center\"><img src='http://127.0.0.1:8000/static/20240507_15_02_57_143c78.png'></figure>",
             "items": [
                 "Тестик тестик"
+            ]
+        },
+        {
+            "title": "Тест2",
+            "expanded": false,
+            "html": "<h1>Тест2</h1><h2>Новый заголовок</h2><p>урааа</p>",
+            "items": [
+                "Новый заголовок"
+            ]
+        },
+        {
+            "title": "Тест 3",
+            "expanded": false,
+            "html": "<h1>Тест 3</h1><h2>фывыфвфыв</h2><h3>фывфывфыв</h3>",
+            "items": [
+                "фывыфвфыв"
             ]
         }
     ]

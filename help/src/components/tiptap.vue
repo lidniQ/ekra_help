@@ -102,7 +102,7 @@ export default {
           class: 'custom-editor-style',
           style: `background-color: #fff;
               width: 1525px;
-              height: ${this.flag ? '880px' : '970px'}; // изменение высоты в зависимости от flag
+              height: ${this.flag ? '400px' : '600px'}; // изменение высоты в зависимости от flag
               overflow-y: auto;
               border-radius: 5px;
               border: none;
@@ -118,7 +118,7 @@ export default {
 
 <template>
   <menu_edit v-if="flag" :editor="editor"></menu_edit>
-  <editor-content v-if="flag" :editor="editor" />
+  <editor-content :editor="editor" />
 </template>
 
 <style>
