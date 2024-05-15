@@ -8,6 +8,7 @@ import TextAlign from '@tiptap/extension-text-align';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
 import Link from '@tiptap/extension-link';
+import Blockquote from '@tiptap/extension-blockquote'
 
 import CustomImage from '../js/Image/custom-image.js';
 
@@ -85,6 +86,7 @@ export default {
         Highlight,
         Typography,
         SmilieReplacer,
+        Blockquote,
         ColorHighlighter,
         Underline,
         Document,
@@ -225,9 +227,14 @@ export default {
     margin-top: 0.75em;
   }
 
+  blockquote {
+    padding-left: 2rem;
+    border-left: 2px solid rgba(#b6b6b6, 0.1);
+  }
+
   ul,
   ol {
-    padding: 0 1rem;
+    padding: 0 2rem;
   }
 
   h1,

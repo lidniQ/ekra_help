@@ -112,7 +112,7 @@ export default {
 .sub-item-link {
   text-decoration: none;
   color: #707070;
-  padding-left: 40px;
+  padding-left: 15px;
 
 }
 

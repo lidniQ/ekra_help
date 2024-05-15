@@ -30,7 +30,7 @@ export default {
         if (file) {
           const formData = new FormData();
           formData.append('image', file);
-          axios.post('http://127.0.0.1:8000/upload_image/', formData)
+          axios.post('http://10.27.1.6:8000/upload_image/', formData)
             .then(response => {
               const imageUrl = response.data.file_url;
               console.log('Image URL:', imageUrl);

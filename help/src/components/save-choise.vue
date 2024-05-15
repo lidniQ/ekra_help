@@ -78,7 +78,7 @@ export default {
       this.setPreview(!this.preview);
     },
     saveArticle() {
-      axios.post('http://127.0.0.1:8000/save/content', { content: this.editorContent, title: this.selectedTitle })
+      axios.post('http://10.27.1.6:8000/save/content', { content: this.editorContent, title: this.selectedTitle })
         .then(response => {
           console.log('Успешно сохранено:', response.data);
         })

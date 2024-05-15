@@ -110,7 +110,7 @@ async def upload_image(image: UploadFile = File(...)):
         with open(f"{UPLOAD_FOLDER}/{unique_filename}.png", "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
         print("Изображение успешно загружено")
-        file_url = f"http://127.0.0.1:8000/static/{unique_filename}.png"  # Изменяем URL-адрес для доступа к статическим файлам
+        file_url = f"http://10.27.1.6:8000/static/{unique_filename}.png"  # Изменяем URL-адрес для доступа к статическим файлам
         return {"file_url": file_url}    
     except Exception as e:
         print(f"Не удалось загрузить изображение: {str(e)}")
