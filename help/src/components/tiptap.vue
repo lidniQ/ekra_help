@@ -230,7 +230,7 @@ export default {
   }
   ul,
   ol {
-    padding: 0 1rem;
+    padding: 0 2rem;
   }
 
   h1,
