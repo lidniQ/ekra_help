@@ -19,7 +19,7 @@ export default {
     loadArticles() {
       this.articles = jsonData.articles.map(article => ({
         ...article,
-        expanded: false // Initialize 'expanded' property for each article
+        expanded: false
       }));
     },
     toggleDropdown(index) {

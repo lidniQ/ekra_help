@@ -1,5 +1,5 @@
 <script>
-import { Editor, EditorContent, FloatingMenu } from '@tiptap/vue-3'
+import { Editor, EditorContent, BubbleMenu } from '@tiptap/vue-3'
 import StarterKit from '@tiptap/starter-kit'
 import { ColorHighlighter } from '../ts/ColorHighlighter';
 import { SmilieReplacer } from '../ts/SmilieReplacer.ts';
@@ -7,16 +7,19 @@ import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
 import Typography from '@tiptap/extension-typography';
 import Underline from '@tiptap/extension-underline';
-import { MyImage } from "../ts/Image/Image.ts";
-import { Color } from '@tiptap/extension-color'
-import Document from '@tiptap/extension-document'
-import Paragraph from '@tiptap/extension-paragraph'
-import Text from '@tiptap/extension-text'
-import TextStyle from '@tiptap/extension-text-style'
-import Table from '@tiptap/extension-table'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
-import TableRow from '@tiptap/extension-table-row'
+import Link from '@tiptap/extension-link';
+
+import CustomImage from '../js/Image/custom-image.js';
+
+import { Color } from '@tiptap/extension-color';
+import Document from '@tiptap/extension-document';
+import Paragraph from '@tiptap/extension-paragraph';
+import Text from '@tiptap/extension-text';
+import TextStyle from '@tiptap/extension-text-style';
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
 // import Doc from '../ts/Title/Doc.ts'
 // import Title from '../ts/Title/Title.ts'
 import { ref, watch } from 'vue';
@@ -36,7 +39,7 @@ export default {
   components: {
     EditorContent,
     menu_edit,
-    FloatingMenu,
+    BubbleMenu
   },
   props: {
     modelValue: {
@@ -46,27 +49,35 @@ export default {
   },
 
   emits: ['update:modelValue'],
-
   watch: {
+    flag(newFlagValue) {
+      this.editor.options.editable = newFlagValue;
+    },
+    preview(newPreviewValue) {
+      this.editor.options.editable = !newPreviewValue;
+    },
+
     modelValue(value) {
       // HTML
       const isSame = this.editor.getHTML() === value
-
       // JSON
       // const isSame = JSON.stringify(this.editor.getJSON()) === JSON.stringify(value)
 
       if (isSame) {
         return
       }
-
       this.editor.commands.setContent(value, false)
     },
   },
-
   mounted() {
     this.editor = new Editor({
       extensions: [
         StarterKit,
+        CustomImage.configure({
+          HTMLAttributes: {
+            class: 'custom-image'
+          }
+        }),
         TextAlign.configure({
           types: ['heading', 'paragraph', 'image'],
           alignments: ['left', 'center', 'right', 'justify'],
@@ -76,7 +87,6 @@ export default {
         SmilieReplacer,
         ColorHighlighter,
         Underline,
-        MyImage,
         Document,
         Paragraph,
         Text,
@@ -89,6 +99,7 @@ export default {
         TableHeader,
         TableCell,
       ],
+      editable: false,
       content: this.modelValue,
       onUpdate: () => {
         // HTML
@@ -102,22 +113,109 @@ export default {
           class: 'custom-editor-style',
           style: `background-color: #fff;
               width: 1525px;
-              height: ${this.flag ? '400px' : '600px'}; // изменение высоты в зависимости от flag
+              height: ${this.flag ? '880px' : '860px'}; // изменение высоты в зависимости от flag
               overflow-y: auto;
-              border-radius: 5px;
-              border: none;
               margin: ${this.flag ? '0 0 0 0' : '20px 0px 20px 0'};`
-
-
         },
       },
-    })
+    },
+    )
+  },
+
+  beforeDestroy() {
+    this.editor.destroy()
   },
 }
 </script>
 
 <template>
   <menu_edit v-if="flag" :editor="editor"></menu_edit>
+  <bubble-menu class="bubble-menu" :tippy-options="{ animation: false }" :editor="editor" v-if="editor"
+    v-show="editor.isActive('custom-image')">
+    <div class="sizeIMG">
+      <button @click="
+    editor
+      .chain()
+      .focus()
+      .setImage({ size: 'small' })
+      .run()
+    " :class="{
+    'is-active': editor.isActive('custom-image', {
+      size: 'small'
+    })
+  }">
+        Маленький
+      </button>
+      <button @click="
+    editor
+      .chain()
+      .focus()
+      .setImage({ size: 'medium' })
+      .run()
+    " :class="{
+    'is-active': editor.isActive('custom-image', {
+      size: 'medium'
+    })
+  }">
+        Средний
+      </button>
+      <button @click="
+    editor
+      .chain()
+      .focus()
+      .setImage({ size: 'large' })
+      .run()
+    " :class="{
+    'is-active': editor.isActive('custom-image', {
+      size: 'large'
+    })
+  }">
+        Большой
+      </button>
+    </div>
+    <span style="color: #aaa">|</span>
+    <div class="alignsIMG">
+      <button @click="
+    editor
+      .chain()
+      .focus()
+      .setImage({ float: 'left' })
+      .run()
+    " :class="{
+    'is-active': editor.isActive('custom-image', {
+      float: 'left'
+    })
+  }">
+        Слева
+      </button>
+      <button @click="
+    editor
+      .chain()
+      .focus()
+      .setImage({ float: 'none' })
+      .run()
+    " :class="{
+    'is-active': editor.isActive('custom-image', {
+      float: 'none'
+    })
+  }">
+        По центру
+      </button>
+      <button @click="
+    editor
+      .chain()
+      .focus()
+      .setImage({ float: 'right' })
+      .run()
+    " :class="{
+    'is-active': editor.isActive('custom-image', {
+      float: 'right'
+    })
+  }">
+        Справа
+      </button>
+    </div>
+  </bubble-menu>
   <editor-content :editor="editor" />
 </template>
 
@@ -139,37 +237,6 @@ export default {
   h5,
   h6 {
     line-height: 1.1;
-  }
-
-  code {
-    background-color: rgba(#616161, 0.1);
-    color: #616161;
-  }
-
-  pre {
-    background: #0D0D0D;
-    color: #FFF;
-    font-family: 'JetBrainsMono', monospace;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-
-    code {
-      color: inherit;
-      padding: 0;
-      background: none;
-      font-size: 0.8rem;
-    }
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  blockquote {
-    padding-left: 1rem;
-    border-left: 2px solid rgba(#0D0D0D, 0.1);
-    color: rgb(80, 80, 80);
   }
 
   hr {
@@ -241,5 +308,136 @@ export default {
 .resize-cursor {
   cursor: ew-resize;
   cursor: col-resize;
+}
+
+.frame {
+  max-width: 900px;
+  background: white;
+  margin: 0 auto;
+}
+
+.controls {
+  padding: 10px;
+  border-bottom: 3px solid #eee;
+  display: flex;
+  width: 100%;
+  align-items: center;
+
+  button {
+    background: none;
+    font-weight: bold;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    margin-right: 4px;
+    align-items: center;
+    color: #0d0d0d;
+    padding: 7px;
+    border: 1px solid #ccc;
+
+    &.is-active {
+      background: #ddd;
+    }
+  }
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%;
+  padding-top: 10px;
+  height: 0;
+  overflow: hidden;
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ProseMirror {
+
+  &:focus {
+    outline: 2px solid #26ada5;
+  }
+
+  >*+* {
+    margin-top: 0.75em;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+
+    &.ProseMirror-selectednode {
+      outline: 3px solid #16c8ab;
+    }
+  }
+
+  .custom-image-small {
+    max-width: 200px;
+  }
+
+  .custom-image-medium {
+    max-width: 500px;
+  }
+
+  .custom-image-large {
+    max-width: 80%;
+  }
+
+  .custom-image-float-none {
+    float: none;
+  }
+
+  .custom-image-float-left {
+    float: left;
+  }
+
+  .custom-image-float-right {
+    float: right;
+  }
+}
+
+.bubble-menu {
+  display: flex;
+  padding-left: 2px;
+  padding-right: 2px;
+  background-color: #0d0d0d;
+  border-radius: 0.5rem;
+
+  .sizeIMG {
+    display: flex
+  }
+
+  .alignsIMG {
+    display: flex
+  }
+
+  button {
+    border: none;
+    background: none;
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0 0.2rem;
+    opacity: 0.6;
+
+    &:hover,
+    &.is-active {
+      opacity: 1;
+    }
+
+    &.is-active {
+      text-decoration: underline;
+      color: #16c8ab;
+    }
+  }
 }
 </style>

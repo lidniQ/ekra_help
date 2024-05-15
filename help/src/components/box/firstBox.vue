@@ -1,11 +1,7 @@
 <template>
   <form>
-    <select title="Заголовок" id="font-size" name="text-size" @change="handleHeadingLevelChange">
-      <option value="1" :selected="headingLevel === '1'">Заголовок 1</option>
-      <option value="2" :selected="headingLevel === '2'">Заголовок 2</option>
-      <option value="3" :selected="headingLevel === '3'">Заголовок 3</option>
-      <option value="4" :selected="headingLevel === '4'">Заголовок 4</option>
-      <option value="pr" :selected="headingLevel === 'pr'">Параграф</option>
+    <select title="Заголовок" id="font-size" name="text-size" v-model="headingLevel" @change="handleHeadingLevelChange">
+      <option v-for="option in headingOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
     </select>
   </form>
 </template>
@@ -19,26 +15,34 @@ export default defineComponent({
   },
   data() {
     return {
-      headingLevel: '', //хранит выбранный заголовок(тег{h1,h2,h3,h4,p})
+      headingLevel: '',
+      headingOptions: [
+        { value: '1', label: 'Заголовок 1' },
+        { value: '2', label: 'Заголовок 2' },
+        { value: '3', label: 'Заголовок 3' },
+        { value: '4', label: 'Заголовок 4' },
+        { value: 'pr', label: 'Параграф' },
+      ],
     };
   },
   mounted() {
     this.setHeadingLevel();
   },
-
   methods: {
-    handleHeadingLevelChange(event) {
-      const selectedValue = event.target.value;
-      if (selectedValue === 'pr') {
-        this.editor.chain().focus().setParagraph().run();
-      }
-      else {
-        this.editor.chain().focus().toggleHeading({ level: parseInt(selectedValue) }).run();
+    handleHeadingLevelChange() {
+      if (this.headingLevel === 'pr') {
+        this.editor.chain().focus().setParagraph().insertContent('\n').run();
+      } else {
+        this.editor.chain().focus().toggleHeading({ level: parseInt(this.headingLevel) }).insertContent('\n').run();
       }
     },
     setHeadingLevel() {
-      //нуже метод для определения тега, чтобы заголовки сами определялись и что бы пофиксить баги-_-
+      const { $from, to, node } = this.editor.state.selection;
+      const headingNode = this.editor.state.schema.nodes.heading;
+      if (node && node.type === headingNode) {
+        this.headingLevel = String(node.attrs.level);
+      }
     },
-  }
+  },
 });
 </script>

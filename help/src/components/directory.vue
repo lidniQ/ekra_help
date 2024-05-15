@@ -98,7 +98,7 @@ img {
 .choise-menu {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-end;
   position: absolute;
   top: 950px;
   height: 60px;

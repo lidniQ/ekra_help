@@ -2,6 +2,7 @@
 import { mapState, mapMutations } from 'vuex';
 
 export default {
+
   computed: {
     ...mapState(['flag', 'preview', 'selectedTitle']),
   },
@@ -54,7 +55,7 @@ export default {
 .spaceBG button:before {
   content: "";
   position: absolute;
-  top: 45%;
+  top: 48%;
   left: 50%;
   width: 80%;
   height: 80%;

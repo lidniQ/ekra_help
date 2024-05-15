@@ -31,9 +31,8 @@ export default {
     </div>
     <div class="directory">
       <pencil_edit v-if="!flag" />
+      <directory />
       <empty v-if="!flag" />
-      <directory v-if="selectedTitle" />
-      <directoryNewArticle v-if="flag" />
     </div>
   </div>
 </template>
