@@ -3,10 +3,13 @@
     <button title="Вставить изображение" type="button" @click="addImage">
       <i class="fa-solid fa-image"></i>
     </button>
+    <button @click="addVideo">
+    </button>
     <table_insert :editor="editor" />
     <input title="Изменить цвет текста" type="color" @input="editor.chain().focus().setColor($event.target.value).run()"
       :value="editor.getAttributes('textStyle').color">
   </div>
+
 </template>
 
 <script>
@@ -49,11 +52,16 @@ export default {
       };
       input.click();
     },
+    addVideo() {
+      const url = window.prompt('URL')
+
+      if (url) {
+        this.editor.chain().focus().setIframe({ src: url }).run()
+      }
+    },
+
   },
 };
-
-
-
-
-
 </script>
+
+<style></style>

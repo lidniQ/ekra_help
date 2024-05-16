@@ -5,8 +5,8 @@
     <div class="editor-content">
       <tiptap v-model="content" />
     </div>
-    <div class="choise-menu">
-      <save_choise v-if="flag" />
+    <div v-if="flag" class="choise-menu">
+      <save_choise />
     </div>
   </div>
 </template>

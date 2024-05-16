@@ -24,11 +24,10 @@
       :class="{ 'is-active': editor.isActive('highlight') }">
       <i class="fa-solid fa-highlighter"></i>
     </button>
-    <button title="Нижний регистр">
-      <i class="fa-solid"></i> x2
-    </button>
-    <button title="Верхний регистр">
-      <i class="fa-solid"></i> x2
+    <button title="Цитата" @click="editor.chain().focus().toggleBlockquote().run()"
+      :disabled="!editor.can().chain().focus().toggleStrike().run()"
+      :class="{ 'is-active': editor.isActive('blockquote') }">
+      <i class="fa-solid fa-quote-left"></i>
     </button>
   </div>
 </template>

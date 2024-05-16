@@ -11,6 +11,7 @@ import Link from '@tiptap/extension-link';
 import Blockquote from '@tiptap/extension-blockquote'
 
 import CustomImage from '../js/Image/custom-image.js';
+import VideoEdit from '../ts/video/videoEdit.ts';
 
 import { Color } from '@tiptap/extension-color';
 import Document from '@tiptap/extension-document';
@@ -92,6 +93,7 @@ export default {
         Document,
         Paragraph,
         Text,
+        VideoEdit,
         TextStyle,
         Color,
         Table.configure({
@@ -122,6 +124,7 @@ export default {
       },
     },
     )
+
   },
 
   beforeDestroy() {
@@ -188,7 +191,7 @@ export default {
       float: 'left'
     })
   }">
-        Слева
+        <i class="fa-solid fa-align-left"></i>
       </button>
       <button @click="
     editor
@@ -201,7 +204,7 @@ export default {
       float: 'none'
     })
   }">
-        По центру
+        <i class="fa-solid fa-align-center"></i>
       </button>
       <button @click="
     editor
@@ -214,7 +217,7 @@ export default {
       float: 'right'
     })
   }">
-        Справа
+        <i class="fa-solid fa-align-right"></i>
       </button>
     </div>
   </bubble-menu>
@@ -224,12 +227,13 @@ export default {
 <style>
 .tiptap {
   >*+* {
-    margin-top: 0.75em;
+    margin: 5px 5px 5px 6px;
   }
 
+
   blockquote {
+    border-left: 3px solid #989696;
     padding-left: 2rem;
-    border-left: 2px solid rgba(#b6b6b6, 0.1);
   }
 
   ul,
@@ -244,6 +248,7 @@ export default {
   h5,
   h6 {
     line-height: 1.1;
+    padding-left: 6px;
   }
 
   hr {
@@ -255,8 +260,8 @@ export default {
   table {
     border-collapse: collapse;
     table-layout: fixed;
-    width: 100%;
-    margin: 0;
+    width: 60%;
+    margin: 0 auto;
     overflow: hidden;
 
     td,
@@ -349,21 +354,6 @@ export default {
   }
 }
 
-.video-wrapper {
-  position: relative;
-  padding-bottom: 56.25%;
-  padding-top: 10px;
-  height: 0;
-  overflow: hidden;
-}
-
-.video-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
 
 .ProseMirror {
 
@@ -446,5 +436,27 @@ export default {
       color: #16c8ab;
     }
   }
+}
+
+
+.iframe-wrapper {
+  position: relative;
+  padding-bottom: calc(80% / 16 * 9);
+  height: 0;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+
+.iframe-wrapper.ProseMirror-selectednode {
+  outline: 3px solid #68CEF8;
+}
+
+.iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
