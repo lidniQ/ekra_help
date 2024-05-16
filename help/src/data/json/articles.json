@@ -14,7 +14,10 @@
         {
             "title": "Экра ИТ",
             "expanded": false,
-            "html": "<h1 style=\"text-align: center\">Экра ИТ</h1><p style=\"text-align: center\">Новая Статья</p><img class=\"custom-image custom-image-large custom-image-float-none\" src=\"http://10.27.1.6:8000/static/20240516_09_42_59_62b97d.png\"/><p style=\"text-align: center\">Рисунок 1 - Добавление новой статьи</p><p style=\"text-align: center\"></p>"
+            "html": "<h1 style=\"text-align: center\">Экра ИТ</h1><h2>;lk;lk;</h2><p style=\"text-align: center\"></p><div class=\"iframe-wrapper\"><iframe allowfullscreen=\"true\" frameborder=\"0\" src=\"http://10.27.1.6:8000/static/demo.mp4\"></iframe></div><p style=\"text-align: center\">Новая Статья</p><img class=\"custom-image custom-image-small custom-image-float-none\" src=\"http://10.27.1.6:8000/static/20240516_09_42_59_62b97d.png\"/><p style=\"text-align: center\"></p><p style=\"text-align: center\">Рисунок 1 - Добавление новой статьи</p><p style=\"text-align: center\"></p>",
+            "items": [
+                ";lk;lk;"
+            ]
         }
     ]
 }

@@ -235,10 +235,12 @@ export default {
     border-left: 3px solid #989696;
     padding-left: 2rem;
   }
- blockquote {
+
+  blockquote {
     padding-left: 2rem;
     border-left: 2px solid rgba(#b6b6b6, 0.1);
   }
+
   ul,
   ol {
     padding: 0 2rem;
@@ -263,7 +265,7 @@ export default {
   table {
     border-collapse: collapse;
     table-layout: fixed;
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     overflow: hidden;
 
@@ -381,11 +383,11 @@ export default {
   }
 
   .custom-image-small {
-    max-width: 200px;
+    max-width: 20%;
   }
 
   .custom-image-medium {
-    max-width: 500px;
+    max-width: 50%;
   }
 
   .custom-image-large {
@@ -444,11 +446,12 @@ export default {
 
 .iframe-wrapper {
   position: relative;
-  padding-bottom: calc(80% / 16 * 9);
+  padding-bottom: calc(50% / 7 * 5);
   height: 0;
   overflow: hidden;
-  width: 100%;
-  height: auto;
+  width: 60%;
+  height: max-content;
+  margin: 0 auto;
 }
 
 .iframe-wrapper.ProseMirror-selectednode {

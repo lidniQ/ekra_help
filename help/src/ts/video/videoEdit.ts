@@ -10,9 +10,6 @@ export interface IframeOptions {
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     iframe: {
-      /**
-       * Add an iframe
-       */
       setIframe: (options: { src: string }) => ReturnType,
     }
   }
@@ -30,6 +27,7 @@ export default Node.create<IframeOptions>({
       allowFullscreen: true,
       HTMLAttributes: {
         class: 'iframe-wrapper',
+        style:'  background-color: #fff;',
       },
     }
   },
@@ -64,11 +62,9 @@ export default Node.create<IframeOptions>({
       setIframe: (options: { src: string }) => ({ tr, dispatch }) => {
         const { selection } = tr
         const node = this.type.create(options)
-
         if (dispatch) {
           tr.replaceRangeWith(selection.from, selection.to, node)
         }
-
         return true
       },
     }

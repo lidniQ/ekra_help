@@ -4,6 +4,8 @@
       <i class="fa-solid fa-image"></i>
     </button>
     <button @click="addVideo">
+      <i class="fa-solid fa-video"></i>
+
     </button>
     <table_insert :editor="editor" />
     <input title="Изменить цвет текста" type="color" @input="editor.chain().focus().setColor($event.target.value).run()"
