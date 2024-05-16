@@ -235,7 +235,10 @@ export default {
     border-left: 3px solid #989696;
     padding-left: 2rem;
   }
-
+ blockquote {
+    padding-left: 2rem;
+    border-left: 2px solid rgba(#b6b6b6, 0.1);
+  }
   ul,
   ol {
     padding: 0 2rem;
