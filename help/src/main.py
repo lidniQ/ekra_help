@@ -97,7 +97,8 @@ def json_load(new_article, check_value):
 # Указываем путь к папке для сохранения файлов
 UPLOAD_FOLDER = "/work/projects/ekra_help/help/src/media/"
 
-app.mount("/static", StaticFiles(directory=UPLOAD_FOLDER), name="static")
+app.mount("/img", StaticFiles(directory=UPLOAD_FOLDER+'/Image'), name="static")
+app.mount("/video", StaticFiles(directory=UPLOAD_FOLDER+'/Video'), name="static")
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
@@ -107,11 +108,27 @@ async def upload_image(image: UploadFile = File(...)):
         # Генерация уникального имени файла
         unique_filename = time.strftime("%Y%m%d_%H_%M_%S_") + uuid.uuid4().hex[:6]
         # Сохранение изображения по уникальному имени
-        with open(f"{UPLOAD_FOLDER}/{unique_filename}.png", "wb") as buffer:
+        with open(f"{UPLOAD_FOLDER}/Image/{unique_filename}.png", "wb") as buffer:
             shutil.copyfileobj(image.file, buffer)
         print("Изображение успешно загружено")
-        file_url = f"http://10.27.1.6:8000/static/{unique_filename}.png"  # Изменяем URL-адрес для доступа к статическим файлам
+        file_url = f"http://10.27.1.6:8000/img/{unique_filename}.png"  # Изменяем URL-адрес для доступа к статическим файлам
         return {"file_url": file_url}    
     except Exception as e:
         print(f"Не удалось загрузить изображение: {str(e)}")
         return JSONResponse(status_code=500, content={"message": f"Не удалось загрузить изображение: {str(e)}"})
+
+
+@app.post("/upload_video/")
+async def upload_image(video: UploadFile = File(...)):
+    try:
+        # Генерация уникального имени файла
+        unique_filename = time.strftime("%Y%m%d_%H_%M_%S_") + uuid.uuid4().hex[:6]
+        # Сохранение изображения по уникальному имени
+        with open(f"{UPLOAD_FOLDER}/Video/{unique_filename}.mp4", "wb") as buffer:
+            shutil.copyfileobj(video.file, buffer)
+        print("Видео успешно загружено")
+        file_url = f"http://10.27.1.6:8000/video/{unique_filename}.mp4"  # Изменяем URL-адрес для доступа к статическим файлам
+        return {"file_url": file_url}    
+    except Exception as e:
+        print(f"Не удалось загрузить видео: {str(e)}")
+        return JSONResponse(status_code=500, content={"message": f"Не удалось загрузить видео: {str(e)}"})

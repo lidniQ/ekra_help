@@ -117,7 +117,7 @@ export default {
           class: 'custom-editor-style',
           style: `background-color: #fff;
               width: 1525px;
-              height: ${this.flag ? '880px' : '860px'}; // изменение высоты в зависимости от flag
+              height: ${this.flag ? '880px' : '835px'}; // изменение высоты в зависимости от flag
               overflow-y: auto;
               margin: ${this.flag ? '0 0 0 0' : '20px 0px 20px 0'};`
         },

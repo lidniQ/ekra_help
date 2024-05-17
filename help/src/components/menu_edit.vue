@@ -15,6 +15,9 @@
           <div class="fourth box">
             <fourthBox :editor="editor" />
           </div>
+          <div class="table_edit box">
+            <table_edit :editor="editor" />
+          </div>
           <div class="fifth box">
             <fifthBox :editor="editor" />
           </div>
@@ -33,6 +36,7 @@ import firstBox from './box/firstBox.vue';
 import thirdBox from './box/thirdBox.vue';
 import fourthBox from './box/fourthBox.vue';
 import fifthBox from './box/fifthBox.vue';
+import table_edit from './smallComponents/table.vue';
 
 
 export default defineComponent({
@@ -45,6 +49,7 @@ export default defineComponent({
     thirdBox,
     fourthBox,
     fifthBox,
+    table_edit,
   },
   computed: {
     ...mapState(['preview']),
@@ -68,11 +73,25 @@ export default defineComponent({
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 1525px;
 }
 
 .section {
-  height: 70px;
-  width: 1525px;
+  margin-top: 20px;
+  height: auto;
+  width: auto;
+}
+
+.row {
+  width: auto;
+}
+
+.col {
+  width: auto;
+  margin: 0 auto;
+  /* Aligns the element to the center horizontally */
+  text-align: center;
+  /* Aligns the content inside the element to the center */
 }
 
 .box {
@@ -116,6 +135,21 @@ button.is-active {
 }
 
 .fourth {
+  border-right: 2px solid #40576d33;
+
+  input[type=color] {
+    outline: none;
+    border: none;
+    background-color: #F2F5F7;
+  }
+
+  button:hover {
+    background-color: #16c8aa86;
+  }
+
+}
+
+.table_edit {
   border-right: 2px solid #40576d33;
 
   input[type=color] {

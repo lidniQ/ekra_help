@@ -29,6 +29,14 @@
       :class="{ 'is-active': editor.isActive('blockquote') }">
       <i class="fa-solid fa-quote-left"></i>
     </button>
+    <button @click="editor.chain().focus().toggleBulletList().run()"
+      :class="{ 'is-active': editor.isActive('bulletList') }"
+      :disabled="!editor.can().chain().focus().toggleStrike().run()">
+      <i class="fa-solid fa-list-ul"></i> </button>
+    <button @click="editor.chain().focus().toggleOrderedList().run()"
+      :class="{ 'is-active': editor.isActive('orderedList') }"
+      :disabled="!editor.can().chain().focus().toggleStrike().run()">
+      <i class="fa-solid fa-list-ol"></i> </button>
   </div>
 </template>
 
